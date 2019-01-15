@@ -3,7 +3,7 @@ require 'gosu'
 class Window < Gosu::Window
   def initialize
     super(640, 480, false)
-    self.caption = 'BoI clone'
+    self.caption = 'Resident Evil Style'
   end
 
   def needs_cursor?; true; end
