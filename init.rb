@@ -1,4 +1,11 @@
 require 'gosu'
+require 'opengl'
+require 'glu'
+
+OpenGL.load_lib
+GLU.load_lib
+
+include OpenGL, GLU
 
 class Window < Gosu::Window
   def initialize
