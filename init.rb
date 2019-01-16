@@ -40,7 +40,7 @@ class Window < Gosu::Window
       opengl_init
       @camera.look
       @character.draw
-  	end
+    end
 
     @camera.draw
   end
