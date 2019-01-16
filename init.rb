@@ -1,10 +1,3 @@
-=begin
-
-TODO : finaliser les directions du personnage
-et sortir le personnage vers une classe Personnage !	
-	
-=end
-
 require 'gosu'
 require 'opengl'
 require 'glu'
@@ -34,22 +27,22 @@ class Window < Gosu::Window
   end
 
   def update
-  	@character.update
+    @character.update
   end
 
   def opengl_init
-	glEnable(GL_DEPTH_TEST)
-	glEnable(GL_TEXTURE_2D)
+    glEnable(GL_DEPTH_TEST)
+    glEnable(GL_TEXTURE_2D)
   end
 
   def draw
-  	gl(10) do
+    gl(10) do
       opengl_init
       @camera.look
       @character.draw
   	end
 
-  	@camera.draw
+    @camera.draw
   end
 end
 
