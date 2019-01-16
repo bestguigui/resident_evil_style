@@ -9,5 +9,7 @@
 	"t_z": -207,
 	"angle_x": 52,
 	"angle_y": 0,
-	"angle_z": -168
+	"angle_z": -168,
+	"top": "z+",
+	"right": "x-"
 }

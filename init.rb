@@ -43,8 +43,27 @@ class Window < Gosu::Window
       end
 	end
 
-	# en fonction de la rotation Z, on doit définir les incréments de tile à effectuer... pas simple !
-	
+	angles = @camera.get_angles
+	top    = angles[3]
+	right  = angles[4]
+	if Gosu::button_down?(Gosu::KB_UP)
+		vel = -vel if top.split('')[1] == '-'
+		i = (top.split('')[0] == 'x') ? 0 : 1
+		@plane_coords[i] -= vel
+	elsif Gosu::button_down?(Gosu::KB_DOWN)
+		vel = -vel if top.split('')[1] == '-'
+		i = (top.split('')[0] == 'x') ? 0 : 1
+		@plane_coords[i] += vel
+	end	
+	if Gosu::button_down?(Gosu::KB_LEFT)
+		vel = -vel if right.split('')[1] == '-'
+		i = (right.split('')[0] == 'x') ? 0 : 1
+		@plane_coords[i] -= vel
+	elsif Gosu::button_down?(Gosu::KB_RIGHT)
+		vel = -vel if right.split('')[1] == '-'
+		i = (right.split('')[0] == 'x') ? 0 : 1
+		@plane_coords[i] += vel
+	end	
   end
 
   def opengl_init

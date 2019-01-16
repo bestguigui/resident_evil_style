@@ -8,7 +8,7 @@ class Camera
 	end
 
 	def get_angles
-		[@infos["angle_x"], @infos["angle_y"], @infos["angle_z"]]
+		[@infos["angle_x"], @infos["angle_y"], @infos["angle_z"], @infos["top"], @infos["right"]]
 	end
 
 	def look
