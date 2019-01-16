@@ -1,9 +1,9 @@
 require 'json'
 
 class Camera
-	def initialize(window, json_file)
+	def initialize(window, json_filename)
 		@window = window
-		@infos = JSON.parse(File.read(json_file))
+		@infos = JSON.parse(File.read("cameras/" + json_filename))
 		@background = Gosu::Image.new("gfx/backgrounds/" + @infos["image"], retro: true)
 	end
 
