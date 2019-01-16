@@ -15,6 +15,7 @@ GLU.load_lib
 include OpenGL, GLU
 
 require_relative 'source/camera.rb'
+require_relative 'source/character.rb'
 
 class Window < Gosu::Window
   def initialize
