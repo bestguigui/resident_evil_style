@@ -4,7 +4,7 @@ class Camera
 	def initialize(window, json_file)
 		@window = window
 		@infos = JSON.parse(File.read(json_file))
-		@background = Gosu::Image.new("./gfx/backgrounds/" + @infos["image"], retro: true)
+		@background = Gosu::Image.new("backgrounds/" + @infos["image"], retro: true)
 	end
 
 	def get_angles

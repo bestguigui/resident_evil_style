@@ -14,14 +14,13 @@ GLU.load_lib
 
 include OpenGL, GLU
 
-require_relative 'mouse.rb'
-require_relative 'camera.rb'
+require_relative 'source/camera.rb'
 
 class Window < Gosu::Window
   def initialize
     super(800, 600, false)
     self.caption = 'Resident Evil Style'
-  	@character = Gosu::Image.new('characters/test.png', retro: true)
+  	@character = Gosu::Image.new('gfx/characters/test.png', retro: true)
     @camera = Camera.new(self, 'camera.json')
   end
 
