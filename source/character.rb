@@ -3,7 +3,9 @@ class Character
     @window = window
     @plane_size = 32
     @coords = [40, 216, 0]
-    @sprite = Gosu::Image.new('gfx/characters/' + filename, retro: true)
+    @sprite = Gosu::Image.load_tiles('gfx/characters/' + filename, @plane_size, @plane_size, retro: true)
+    @orientations = [:north, :east, :south, :west]
+    @orientation = :south
     @velocity = 1.0
     @keys = @window.keys
     @keystates = Hash.new
@@ -35,18 +37,22 @@ class Character
         vel = -vel if top.split('')[1] == '-'
         i = (top.split('')[0] == 'x') ? 0 : 1
         @coords[i] -= vel
+        @orientation = :north
       when @keys["move_down"]
         vel = -vel if top.split('')[1] == '-'	
         i = (top.split('')[0] == 'x') ? 0 : 1
         @coords[i] += vel
+        @orientation = :south
       when @keys["move_left"]
         vel = -vel if right.split('')[1] == '-'
         i = (right.split('')[0] == 'x') ? 0 : 1
         @coords[i] -= vel
+        @orientation = :west
       when @keys["move_right"]
         vel = -vel if right.split('')[1] == '-'
         i = (right.split('')[0] == 'x') ? 0 : 1
         @coords[i] += vel
+        @orientation = :east
       end
     end	
   end
@@ -58,7 +64,8 @@ class Character
       glRotatef(angles[2], 0, 0, 1)
       glRotatef(angles[0] - 90, 1, 0, 0)
       glScalef(@plane_size, @plane_size, @plane_size)
-      tex = @sprite.gl_tex_info
+      image_index = @orientations.index(@orientation)
+      tex = @sprite[image_index].gl_tex_info
       glBindTexture(GL_TEXTURE_2D, tex.tex_name)
       l, r, t, b = tex.left, tex.right, tex.top, tex.bottom
 
