@@ -4,10 +4,11 @@ class Character
     @plane_size = 32
     @coords = [0, 0, 16]
     @sprite = Gosu::Image.new('gfx/characters/' + filename, retro: true)
+    @vel = 1.0
   end
 
   def update
-    vel = 1.0
+    vel = @vel
     if (Gosu::button_down?(Gosu::KB_LEFT) or Gosu::button_down?(Gosu::KB_RIGHT))
       if (Gosu::button_down?(Gosu::KB_UP) or Gosu::button_down?(Gosu::KB_DOWN))
         vel *= 0.7
