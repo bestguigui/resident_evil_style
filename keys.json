@@ -1,0 +1,7 @@
+{
+	"exit": "Gosu::KB_ESCAPE",
+	"move_up": "Gosu::KB_UP",
+	"move_down": "Gosu::KB_DOWN",
+	"move_left": "Gosu::KB_LEFT",
+	"move_right": "Gosu::KB_RIGHT"
+}

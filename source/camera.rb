@@ -1,5 +1,3 @@
-require 'json'
-
 class Camera
   def initialize(window, json_filename)
     @window = window
