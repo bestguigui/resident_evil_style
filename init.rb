@@ -57,13 +57,13 @@ class Window < Gosu::Window
       @character.draw
     end
     @camera.draw
-    
-    # @fg ||= Gosu::Image.new("gfx/foregrounds/test.png", retro: true)
-    # scale_x = self.width / @fg.width.to_f
-    # scale_y = self.height / @fg.height.to_f
-    # @fg.draw(0, 0, @character.coords[1] + 1, scale_x, scale_y) if @character.coords[1] > 66 and @character.coords[1] < 150
 
-    # @font ||= Gosu::Font.new(24)
+    @fg ||= Gosu::Image.new("gfx/foregrounds/test.png", retro: true)
+    scale_x = self.width / @fg.width.to_f
+    scale_y = self.height / @fg.height.to_f
+    @fg.draw(0, 0, @character.coords[1] + 1, scale_x, scale_y) if @character.coords[1] > 216
+
+    @font ||= Gosu::Font.new(24)
     # @font.draw_text(@character.coords.inspect + " -> " + @character.target.inspect, 10, 10, 1000)
   end
 end

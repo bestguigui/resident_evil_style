@@ -1,0 +1,15 @@
+{
+	"image": "test2.png",
+	"fovy": 34.516,
+	"x": 75,
+	"y": 31,
+	"z": 64,
+	"t_x": 52,
+	"t_y": 220,
+	"t_z": 24,
+	"angle_x": 78,
+	"angle_y": 0,
+	"angle_z": 7,
+	"top": "z-",
+	"right": "x+"
+}
