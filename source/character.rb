@@ -7,7 +7,11 @@ class Character
     @sprite = Gosu::Image.load_tiles('gfx/characters/' + filename, @plane_size, @plane_size, retro: true)
     @orientations = [:north, :east, :south, :west]
     @orientation = :south
-    @velocity = 1.0
+    @frame = 1
+    @frame_tick = nil
+    @frame_duration = 150
+    @left_foot = false
+    @velocity = 1.25
     @target = nil
     @keys = @window.keys
     @keystates = Hash.new
@@ -55,10 +59,26 @@ class Character
         i = (right.split('')[0] == 'x') ? 0 : 1
         @target[i] += vel
         @orientation = :east
-      end
+      end    
     end
 
     unless @target.nil?
+      @frame_tick = Gosu::milliseconds if @frame_tick.nil?
+      if Gosu::milliseconds - @frame_tick >= @frame_duration
+        if @frame == 1
+          if @left_foot
+            @frame = 2
+            @left_foot = false
+          else
+            @frame = 0
+            @left_foot = true
+          end
+        else
+          @frame = 1
+        end
+        @frame_tick = Gosu::milliseconds
+      end
+
       if @coords[0] != @target[0]
         if @coords[0] > @target[0]
           @coords[0] -= @velocity
@@ -76,7 +96,12 @@ class Character
           @coords[1] = @target[1] if @coords[1] > @target[1]
         end
       end 
-      @target = nil if (@coords[0] == @target[0] and @coords[1] == @target[1] and @coords[2] == @target[2])
+      if (@coords[0] == @target[0] and @coords[1] == @target[1] and @coords[2] == @target[2])
+        @target = nil 
+      end
+    else
+      @frame = 1
+      @frame_tick = nil
     end	
   end
 
@@ -87,7 +112,7 @@ class Character
       glRotatef(angles[2], 0, 0, 1)
       glRotatef(angles[0] - 90, 1, 0, 0)
       glScalef(@plane_size, @plane_size, @plane_size)
-      image_index = @orientations.index(@orientation)
+      image_index = @orientations.index(@orientation) * 3 + @frame
       tex = @sprite[image_index].gl_tex_info
       glBindTexture(GL_TEXTURE_2D, tex.tex_name)
       l, r, t, b = tex.left, tex.right, tex.top, tex.bottom
