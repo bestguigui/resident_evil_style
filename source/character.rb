@@ -6,39 +6,48 @@ class Character
     @sprite = Gosu::Image.new('gfx/characters/' + filename, retro: true)
     @velocity = 1.0
     @keys = @window.keys
+    @keystates = Hash.new
   end
 
   def button_down(id)
-
+    if @keys.has_value?(id)
+      @keystates[id] = Gosu::milliseconds
+    end
   end
 
   def button_up(id)
-
+    if @keys.has_value?(id)
+      @keystates.delete(id)
+    end
   end
 
   def update
-    # the "top" and "right" variables are used to use the right axis and the right way 
-    # related to the current camera angle
     vel = @velocity
     angles = @window.camera.get_angles
     top    = angles[3]
     right  = angles[4]
-    if Gosu::button_down?(@keys["move_up"])
-      vel = -vel if top.split('')[1] == '-'
-      i = (top.split('')[0] == 'x') ? 0 : 1
-      @coords[i] -= vel
-    elsif Gosu::button_down?(@keys["move_down"])
-      vel = -vel if top.split('')[1] == '-'	
-      i = (top.split('')[0] == 'x') ? 0 : 1
-      @coords[i] += vel
-    elsif Gosu::button_down?(@keys["move_left"])
-      vel = -vel if right.split('')[1] == '-'
-      i = (right.split('')[0] == 'x') ? 0 : 1
-      @coords[i] -= vel
-    elsif Gosu::button_down?(@keys["move_right"])
-      vel = -vel if right.split('')[1] == '-'
-      i = (right.split('')[0] == 'x') ? 0 : 1
-      @coords[i] += vel
+
+    unless @keystates.keys.empty?
+      last_pressed_key = @keystates.key(@keystates.values.sort.last)
+      
+      case last_pressed_key
+      when @keys["move_up"]
+        vel = -vel if top.split('')[1] == '-'
+        i = (top.split('')[0] == 'x') ? 0 : 1
+        @coords[i] -= vel
+      when @keys["move_down"]
+        vel = -vel if top.split('')[1] == '-'	
+        i = (top.split('')[0] == 'x') ? 0 : 1
+        @coords[i] += vel
+      when @keys["move_left"]
+        vel = -vel if right.split('')[1] == '-'
+        i = (right.split('')[0] == 'x') ? 0 : 1
+        @coords[i] -= vel
+      when @keys["move_right"]
+        vel = -vel if right.split('')[1] == '-'
+        i = (right.split('')[0] == 'x') ? 0 : 1
+        @coords[i] += vel
+      end
     end	
   end
 
