@@ -34,6 +34,11 @@ class Window < Gosu::Window
   def button_down(id)
     super
     close! if id == @keys["exit"]
+    @character.button_down(id)
+  end
+
+  def button_up(id)
+    @character.button_up(id)
   end
 
   def update

@@ -4,20 +4,22 @@ class Character
     @plane_size = 32
     @coords = [0, 0, 16]
     @sprite = Gosu::Image.new('gfx/characters/' + filename, retro: true)
-    @vel = 1.0
+    @velocity = 1.0
     @keys = @window.keys
   end
 
-  def update
-    vel = @vel
-    if (Gosu::button_down?(@keys["move_left"]) or Gosu::button_down?(@keys["move_right"]))
-      if (Gosu::button_down?(@keys["move_up"]) or Gosu::button_down?(@keys["move_down"]))
-        vel *= 0.7
-      end
-    end
+  def button_down(id)
 
+  end
+
+  def button_up(id)
+
+  end
+
+  def update
     # the "top" and "right" variables are used to use the right axis and the right way 
     # related to the current camera angle
+    vel = @velocity
     angles = @window.camera.get_angles
     top    = angles[3]
     right  = angles[4]
@@ -29,8 +31,7 @@ class Character
       vel = -vel if top.split('')[1] == '-'	
       i = (top.split('')[0] == 'x') ? 0 : 1
       @coords[i] += vel
-    end	
-    if Gosu::button_down?(@keys["move_left"])
+    elsif Gosu::button_down?(@keys["move_left"])
       vel = -vel if right.split('')[1] == '-'
       i = (right.split('')[0] == 'x') ? 0 : 1
       @coords[i] -= vel
