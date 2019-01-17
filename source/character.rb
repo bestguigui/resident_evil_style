@@ -1,12 +1,14 @@
 class Character
-  def initialize(window, filename)
+  attr_reader :coords, :target
+  def initialize(window, filename, coords = [0, 0, 0])
     @window = window
     @plane_size = 32
-    @coords = [40, 216, 0]
+    @coords = coords
     @sprite = Gosu::Image.load_tiles('gfx/characters/' + filename, @plane_size, @plane_size, retro: true)
     @orientations = [:north, :east, :south, :west]
     @orientation = :south
     @velocity = 1.0
+    @target = nil
     @keys = @window.keys
     @keystates = Hash.new
   end
@@ -24,36 +26,57 @@ class Character
   end
 
   def update
-    vel = @velocity
+    vel = 16
     angles = @window.camera.get_angles
     top    = angles[3]
     right  = angles[4]
 
-    unless @keystates.keys.empty?
+    if !@keystates.keys.empty? and @target.nil?
       last_pressed_key = @keystates.key(@keystates.values.sort.last)
-
+      @target = [@coords[0], @coords[1], @coords[2]]
       case last_pressed_key
       when @keys["move_up"]
         vel = -vel if top.split('')[1] == '-'
         i = (top.split('')[0] == 'x') ? 0 : 1
-        @coords[i] -= vel
+        @target[i] -= vel
         @orientation = :north
       when @keys["move_down"]
         vel = -vel if top.split('')[1] == '-'	
         i = (top.split('')[0] == 'x') ? 0 : 1
-        @coords[i] += vel
+        @target[i] += vel
         @orientation = :south
       when @keys["move_left"]
         vel = -vel if right.split('')[1] == '-'
         i = (right.split('')[0] == 'x') ? 0 : 1
-        @coords[i] -= vel
+        @target[i] -= vel
         @orientation = :west
       when @keys["move_right"]
         vel = -vel if right.split('')[1] == '-'
         i = (right.split('')[0] == 'x') ? 0 : 1
-        @coords[i] += vel
+        @target[i] += vel
         @orientation = :east
       end
+    end
+
+    unless @target.nil?
+      if @coords[0] != @target[0]
+        if @coords[0] > @target[0]
+          @coords[0] -= @velocity
+          @coords[0] = @target[0] if @coords[0] < @target[0]
+        elsif @coords[0] < @target[0]
+          @coords[0] += @velocity
+          @coords[0] = @target[0] if @coords[0] > @target[0]
+        end
+      elsif @coords[1] != @target[1]
+        if @coords[1] > @target[1]
+          @coords[1] -= @velocity
+          @coords[1] = @target[1] if @coords[1] < @target[1]
+        elsif @coords[1] < @target[1]
+          @coords[1] += @velocity
+          @coords[1] = @target[1] if @coords[1] > @target[1]
+        end
+      end 
+      @target = nil if (@coords[0] == @target[0] and @coords[1] == @target[1] and @coords[2] == @target[2])
     end	
   end
 

@@ -17,7 +17,7 @@ class Window < Gosu::Window
     super(800, 600, false)
     self.caption = 'Resident Evil Style'
     load_keys
-    @character = Character.new(self, 'test.png')
+    @character = Character.new(self, 'test.png', [40, 216, 0])
     @camera = Camera.new(self, 'camera.json')
   end
 
@@ -51,13 +51,18 @@ class Window < Gosu::Window
   end
 
   def draw
-    gl(10) do
+    gl(@character.coords[1]) do
       opengl_init
       @camera.look
       @character.draw
     end
 
     @camera.draw
+    @fg ||= Gosu::Image.new("gfx/foregrounds/test.png", retro: true)
+    @fg.draw(0, 0, @character.coords[1] + 1) if @character.coords[1] > 66 and @character.coords[1] < 150
+
+    @font ||= Gosu::Font.new(24)
+    # @font.draw_text(@character.coords.inspect + " -> " + @character.target.inspect, 10, 10, 1000)
   end
 end
 
