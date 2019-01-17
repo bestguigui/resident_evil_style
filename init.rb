@@ -14,11 +14,11 @@ require_relative 'source/character.rb'
 class Window < Gosu::Window
   attr_reader :keys, :camera
   def initialize
-    super(800, 600, false)
+    super(640, 480, false)
     self.caption = 'Resident Evil Style'
     load_keys
     @character = Character.new(self, 'test.png', [40, 216, 0])
-    @camera = Camera.new(self, 'camera.json')
+    @camera = Camera.new(self, 'camera2.json')
   end
 
   def load_keys
@@ -56,12 +56,14 @@ class Window < Gosu::Window
       @camera.look
       @character.draw
     end
-
     @camera.draw
-    @fg ||= Gosu::Image.new("gfx/foregrounds/test.png", retro: true)
-    @fg.draw(0, 0, @character.coords[1] + 1) if @character.coords[1] > 66 and @character.coords[1] < 150
+    
+    # @fg ||= Gosu::Image.new("gfx/foregrounds/test.png", retro: true)
+    # scale_x = self.width / @fg.width.to_f
+    # scale_y = self.height / @fg.height.to_f
+    # @fg.draw(0, 0, @character.coords[1] + 1, scale_x, scale_y) if @character.coords[1] > 66 and @character.coords[1] < 150
 
-    @font ||= Gosu::Font.new(24)
+    # @font ||= Gosu::Font.new(24)
     # @font.draw_text(@character.coords.inspect + " -> " + @character.target.inspect, 10, 10, 1000)
   end
 end
