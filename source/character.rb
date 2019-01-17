@@ -2,7 +2,7 @@ class Character
   def initialize(window, filename)
     @window = window
     @plane_size = 32
-    @coords = [0, 0, 16]
+    @coords = [40, 216, 0]
     @sprite = Gosu::Image.new('gfx/characters/' + filename, retro: true)
     @velocity = 1.0
     @keys = @window.keys
@@ -29,7 +29,7 @@ class Character
 
     unless @keystates.keys.empty?
       last_pressed_key = @keystates.key(@keystates.values.sort.last)
-      
+
       case last_pressed_key
       when @keys["move_up"]
         vel = -vel if top.split('')[1] == '-'
@@ -54,7 +54,7 @@ class Character
   def draw
     angles = @window.camera.get_angles
     glPushMatrix
-    glTranslatef(*@coords)    
+      glTranslatef(*@coords)    
       glRotatef(angles[2], 0, 0, 1)
       glRotatef(angles[0] - 90, 1, 0, 0)
       glScalef(@plane_size, @plane_size, @plane_size)

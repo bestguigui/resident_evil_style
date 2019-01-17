@@ -26,6 +26,8 @@ class Camera
   end
 
   def draw
-    @background.draw(0, 0, 0)
+    scale_x = @window.width / @background.width.to_f
+    scale_y = @window.height / @background.height.to_f
+    @background.draw(0, 0, 0, scale_x, scale_y)
   end
 end
