@@ -1,4 +1,7 @@
 =begin
+  for now, I'm doing quick and dirty Z_order sorting using the character Y position.
+  I have to change that to sort all drawable elements, related to the camera settings top/right
+
   will have to credit UltimeciaFFB if I use the Jill sprite !
 =end
 
@@ -63,7 +66,7 @@ class Window < Gosu::Window
     @camera.draw
     @character.draw
     @font ||= Gosu::Font.new(24)
-    @font.draw_text(@character.coords.inspect + " -> " + @character.target.inspect, 10, 10, 1000)
+    # @font.draw_text(@character.coords.inspect + " -> " + @character.target.inspect, 10, 10, 1000)
   end
 end
 
