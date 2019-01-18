@@ -2,7 +2,11 @@ class Camera
   def initialize(window, json_filename)
     @window = window
     @infos = JSON.parse(File.read("cameras/" + json_filename))
-    @background = Gosu::Image.new("gfx/backgrounds/" + @infos["image"], retro: true)
+    @background = Gosu::Image.new("gfx/backgrounds/" + @infos["background"], retro: true)
+    @foregrounds = Array.new
+    @infos["foregrounds"].each do |filename, z_order|
+      @foregrounds.push [Gosu::Image.new("gfx/foregrounds/" + filename, retro: true), z_order]
+    end
   end
 
   def get_angles
@@ -29,5 +33,12 @@ class Camera
     scale_x = @window.width / @background.width.to_f
     scale_y = @window.height / @background.height.to_f
     @background.draw(0, 0, 0, scale_x, scale_y)
+
+    @foregrounds.each do |foreground|
+      gosu_image, z = foreground
+      if @window.character.coords[1] > z
+        gosu_image.draw(0, 0, @window.character.coords[1] + 1, scale_x, scale_y)
+      end
+    end
   end
 end

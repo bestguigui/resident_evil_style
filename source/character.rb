@@ -11,7 +11,7 @@ class Character
     @frame_tick = nil
     @frame_duration = 150
     @left_foot = false
-    @velocity = 0.95
+    @velocity = 0.75
     @target = nil
     @keys = @window.keys
     @keystates = Hash.new
@@ -108,6 +108,14 @@ class Character
   end
 
   def draw
+    @window.gl(@coords[1]) do
+      @window.opengl_init
+      @window.camera.look
+      draw_sprite
+    end
+  end
+
+  def draw_sprite
     angles = @window.camera.get_angles
     glPushMatrix
       glTranslatef(*@coords)    

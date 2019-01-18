@@ -1,5 +1,4 @@
 {
-	"image": "test2.png",
 	"fovy": 34.516,
 	"x": 75,
 	"y": 31,
@@ -11,5 +10,9 @@
 	"angle_y": 0,
 	"angle_z": 7,
 	"top": "z-",
-	"right": "x+"
+	"right": "x+",
+	"background": "test2.png",
+	"foregrounds": {
+    "test.png": 216
+	}
 }
