@@ -1,3 +1,7 @@
+=begin
+  will have to credit UltimeciaFFB if I use the Jill sprite !
+=end
+
 require 'gosu'
 require 'opengl'
 require 'glu'
@@ -17,7 +21,7 @@ class Window < Gosu::Window
     super(640, 480, false)
     self.caption = 'Resident Evil Style'
     load_keys
-    @character = Character.new(self, 'test.png', [40, 216, 0])
+    @character = Character.new(self, 'jill.png', [40, 216, 0])
     @camera = Camera.new(self, 'camera2.json')
   end
 
@@ -43,6 +47,11 @@ class Window < Gosu::Window
 
   def update
     @character.update
+  end
+
+  def allow_position?(position)
+    x, y, z = position
+    true unless x < 24 or x > 104 or y > 232 or (x > 72 and y > 216) or (x == 24 and y == 216)
   end
 
   def opengl_init

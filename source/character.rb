@@ -60,6 +60,8 @@ class Character
         @target[i] += vel
         @orientation = :east
       end    
+
+      @target = nil unless @window.allow_position?(@target)
     end
 
     unless @target.nil?
