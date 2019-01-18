@@ -11,7 +11,7 @@ class Character
     @frame_tick = nil
     @frame_duration = 150
     @left_foot = false
-    @velocity = 1.15
+    @velocity = 0.95
     @target = nil
     @keys = @window.keys
     @keystates = Hash.new
