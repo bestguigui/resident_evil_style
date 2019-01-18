@@ -106,7 +106,7 @@ class Character
   end
 
   def draw
-    @window.gl(@coords[1]) do
+    @window.gl(0) do
       @window.opengl_init
       @window.camera.look
       draw_sprite

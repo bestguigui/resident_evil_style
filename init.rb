@@ -63,8 +63,21 @@ class Window < Gosu::Window
   end
 
   def draw
-    @camera.draw
-    @character.draw
+    @character2 ||= Character.new(self, 'jill.png', [104, 168, 0])
+
+    # toute la scène est dessinée en Z == 0 en commençant par le background
+    @camera.draw # z == 0
+    drawables = []
+    @camera.foregrounds.each {|foreground| drawables.push foreground}
+    drawables.push([@character, @character.coords[1]])
+    drawables.push([@character2, @character2.coords[1]])
+    drawables.sort {|a, b| a[1] <=> b[1]}.reverse.each do |drawable| # reverse parce que z- !!!
+      if drawable[0].is_a?(Gosu::Image)
+        drawable[0].draw(0, 0, 0)
+      else
+        drawable[0].draw
+      end
+    end
     @font ||= Gosu::Font.new(24)
     # @font.draw_text(@character.coords.inspect + " -> " + @character.target.inspect, 10, 10, 1000)
   end

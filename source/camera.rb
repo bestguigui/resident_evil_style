@@ -1,4 +1,5 @@
 class Camera
+	attr_reader :foregrounds
   def initialize(window, json_filename)
     @window = window
     @infos = JSON.parse(File.read("cameras/" + json_filename))
@@ -33,12 +34,5 @@ class Camera
     scale_x = @window.width / @background.width.to_f
     scale_y = @window.height / @background.height.to_f
     @background.draw(0, 0, 0, scale_x, scale_y)
-
-    @foregrounds.each do |foreground|
-      gosu_image, z = foreground
-      if @window.character.coords[1] > z
-        gosu_image.draw(0, 0, @window.character.coords[1] + 1, scale_x, scale_y)
-      end
-    end
   end
 end
