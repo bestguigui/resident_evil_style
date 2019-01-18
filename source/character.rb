@@ -98,9 +98,7 @@ class Character
           @coords[1] = @target[1] if @coords[1] > @target[1]
         end
       end 
-      if (@coords[0] == @target[0] and @coords[1] == @target[1] and @coords[2] == @target[2])
-        @target = nil 
-      end
+      @target = nil if @coords == @target
     else
       @frame = 1
       @frame_tick = nil
